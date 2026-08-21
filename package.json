@@ -1,0 +1,8 @@
+{
+  "name": "brewly-coffee-pos-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "dev": "npm run dev --prefix frontend"
+  }
+}
