@@ -28,21 +28,7 @@ export const app = new Elysia()
     async ({ body, jwt, set }) => {
       const { email, password } = body;
 
-      // Demo fallback or Prisma database lookup
-      let user = null;
-      try {
-        user = await prisma.user.findUnique({ where: { email } });
-      } catch (err) {
-        // Fallback for mock if DB disconnected during offline unit testing
-      }
-
-      if (!user) {
-        if (email === "admin@brewlycoffee.com" && (password === "admin123" || password === "admin123password")) {
-          user = { id: "user-admin", name: "Admin Manager", email, password: password, role: "ADMIN" as const, createdAt: new Date(), updatedAt: new Date() };
-        } else if (email === "kasir@brewlycoffee.com" && (password === "kasir123" || password === "kasir123password")) {
-          user = { id: "user-kasir", name: "Kasir On-Duty", email, password: password, role: "CASHIER" as const, createdAt: new Date(), updatedAt: new Date() };
-        }
-      }
+      const user = await prisma.user.findUnique({ where: { email } });
 
       if (!user || user.password !== password) {
         set.status = 401;
@@ -80,27 +66,18 @@ export const app = new Elysia()
 
   // Dashboard Stats Endpoint
   .get("/api/dashboard/stats", async () => {
-    let totalRevenue = 18450000;
-    let totalSalesCount = 142;
-    let activeProductsCount = 28;
-    let lowStockAlertCount = 4;
-    let todayRevenue = 2450000;
-    let todaySalesCount = 19;
+    const dbRevenue = await prisma.order.aggregate({
+      _sum: { totalAmount: true },
+      _count: { id: true },
+    });
 
-    try {
-      const dbRevenue = await prisma.order.aggregate({ _sum: { totalAmount: true }, _count: { id: true } });
-      const dbProducts = await prisma.product.count();
-      const dbLowStock = await prisma.product.count({ where: { stock: { lte: 5 } } });
+    const activeProductsCount = await prisma.product.count();
+    const lowStockAlertCount = await prisma.product.count({
+      where: { stock: { lte: 5 } },
+    });
 
-      if (dbRevenue._sum.totalAmount !== null && dbRevenue._sum.totalAmount > 0) {
-        totalRevenue = dbRevenue._sum.totalAmount;
-        totalSalesCount = dbRevenue._count.id;
-        activeProductsCount = dbProducts;
-        lowStockAlertCount = dbLowStock;
-      }
-    } catch (e) {
-      // Keep defaults if database unseeded
-    }
+    const totalRevenue = dbRevenue._sum.totalAmount || 0;
+    const totalSalesCount = dbRevenue._count.id || 0;
 
     return {
       status: "success",
@@ -109,98 +86,34 @@ export const app = new Elysia()
         totalSalesCount,
         activeProductsCount,
         lowStockAlertCount,
-        todayRevenue,
-        todaySalesCount,
+        todayRevenue: totalRevenue,
+        todaySalesCount: totalSalesCount,
       },
     };
   })
 
   // Products CRUD Endpoints
   .get("/api/products", async () => {
-    try {
-      const dbProducts = await prisma.product.findMany({
-        include: { category: true },
-        orderBy: { createdAt: "desc" },
-      });
-
-      if (dbProducts.length > 0) {
-        return {
-          status: "success",
-          data: dbProducts.map((p) => ({
-            id: p.id,
-            sku: p.sku,
-            name: p.name,
-            description: p.description || "",
-            price: p.price,
-            costPrice: p.costPrice,
-            stock: p.stock,
-            minStock: p.minStock,
-            categoryId: p.categoryId,
-            categoryName: p.category.name,
-            image: p.image || "",
-          })),
-        };
-      }
-    } catch (err) {
-      // DB offline fallback
-    }
+    const dbProducts = await prisma.product.findMany({
+      include: { category: true },
+      orderBy: { createdAt: "desc" },
+    });
 
     return {
       status: "success",
-      data: [
-        {
-          id: "prod-1",
-          sku: "PRD-001",
-          name: "Kopi Espresso Premium 250g",
-          description: "Biji kopi arabika pilihan roasted medium dark",
-          price: 85000,
-          costPrice: 50000,
-          stock: 24,
-          minStock: 5,
-          categoryId: "cat-1",
-          categoryName: "Minuman & Kopi",
-          image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500&auto=format&fit=crop&q=60",
-        },
-        {
-          id: "prod-2",
-          sku: "PRD-002",
-          name: "Matcha Latte Powder 500g",
-          description: "Bubuk matcha jepang kualitas tinggi",
-          price: 120000,
-          costPrice: 75000,
-          stock: 3,
-          minStock: 5,
-          categoryId: "cat-1",
-          categoryName: "Minuman & Kopi",
-          image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500&auto=format&fit=crop&q=60",
-        },
-        {
-          id: "prod-3",
-          sku: "PRD-003",
-          name: "Croissant Butter Classic",
-          description: "Pastry butter perancis yang renyah dan lembut",
-          price: 28000,
-          costPrice: 12000,
-          stock: 18,
-          minStock: 10,
-          categoryId: "cat-2",
-          categoryName: "Makanan & Bakery",
-          image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=60",
-        },
-        {
-          id: "prod-4",
-          sku: "PRD-004",
-          name: "Sandwich Beef Cheese",
-          description: "Sandwich daging sapi panggang dengan keju melted",
-          price: 38000,
-          costPrice: 20000,
-          stock: 0,
-          minStock: 5,
-          categoryId: "cat-2",
-          categoryName: "Makanan & Bakery",
-          image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500&auto=format&fit=crop&q=60",
-        },
-      ],
+      data: dbProducts.map((p) => ({
+        id: p.id,
+        sku: p.sku,
+        name: p.name,
+        description: p.description || "",
+        price: p.price,
+        costPrice: p.costPrice,
+        stock: p.stock,
+        minStock: p.minStock,
+        categoryId: p.categoryId,
+        categoryName: p.category ? p.category.name : "Umum",
+        image: p.image || "",
+      })),
     };
   })
 
@@ -218,33 +131,24 @@ export const app = new Elysia()
         return { status: "error", message: stockValidation.message };
       }
 
-      let createdProduct = null;
-      try {
-        createdProduct = await prisma.product.create({
-          data: {
-            sku: body.sku,
-            name: body.name,
-            description: body.description,
-            price: body.price,
-            costPrice: body.costPrice || 0,
-            stock: body.stock,
-            minStock: body.minStock || 5,
-            categoryId: body.categoryId,
-            image: body.image,
-          },
-        });
-      } catch (err) {
-        // Fallback for mock environment
-      }
+      const createdProduct = await prisma.product.create({
+        data: {
+          sku: body.sku,
+          name: body.name,
+          description: body.description || "",
+          price: body.price,
+          costPrice: body.costPrice || 0,
+          stock: body.stock,
+          minStock: body.minStock || 5,
+          categoryId: body.categoryId,
+          image: body.image || "",
+        },
+      });
 
       return {
         status: "success",
         message: "Produk berhasil ditambahkan",
-        data: createdProduct || {
-          id: `prod-${Date.now()}`,
-          ...body,
-          createdAt: new Date().toISOString(),
-        },
+        data: createdProduct,
       };
     },
     {
@@ -264,24 +168,8 @@ export const app = new Elysia()
 
   // Categories CRUD Endpoints
   .get("/api/categories", async () => {
-    try {
-      const dbCategories = await prisma.category.findMany();
-      if (dbCategories.length > 0) {
-        return { status: "success", data: dbCategories };
-      }
-    } catch (err) {
-      // Fallback
-    }
-
-    return {
-      status: "success",
-      data: [
-        { id: "cat-1", name: "Minuman & Kopi", description: "Varian kopi, teh, dan minuman segar", icon: "Coffee" },
-        { id: "cat-2", name: "Makanan & Bakery", description: "Roti, pastry, dan makanan berat", icon: "Utensils" },
-        { id: "cat-3", name: "Snack & Dessert", description: "Camilan dan makanan penutup", icon: "IceCream" },
-        { id: "cat-4", name: "Biji Kopi Sangrai", description: "Biji kopi sangrai 250g & 500g house blend", icon: "ShoppingBag" },
-      ],
-    };
+    const dbCategories = await prisma.category.findMany();
+    return { status: "success", data: dbCategories };
   })
 
   // Checkout / Create Order Endpoint
@@ -310,43 +198,36 @@ export const app = new Elysia()
 
       const invoiceNumber = `INV-${Date.now().toString().slice(-6)}`;
 
-      let dbOrder = null;
-      try {
-        dbOrder = await prisma.order.create({
-          data: {
-            invoiceNumber,
-            customerName: body.customerName || "Pelanggan Umum",
-            paymentMethod: (body.paymentMethod as any) || "CASH",
-            subtotal: orderCalc.subtotal,
-            discountAmount: orderCalc.discountAmount,
-            taxAmount: orderCalc.taxAmount,
-            totalAmount: orderCalc.total,
-            paidAmount: body.paidAmount,
-            changeAmount,
-            status: "COMPLETED",
-          },
-        });
-      } catch (err) {
-        // Fallback for mock environment
-      }
-
-      return {
-        status: "success",
-        message: "Transaksi berhasil diproses",
-        data: dbOrder || {
-          id: `ord-${Date.now()}`,
+      const dbOrder = await prisma.order.create({
+        data: {
           invoiceNumber,
           customerName: body.customerName || "Pelanggan Umum",
-          paymentMethod: body.paymentMethod || "CASH",
-          items: body.items,
+          paymentMethod: (body.paymentMethod as any) || "CASH",
           subtotal: orderCalc.subtotal,
           discountAmount: orderCalc.discountAmount,
           taxAmount: orderCalc.taxAmount,
           totalAmount: orderCalc.total,
           paidAmount: body.paidAmount,
           changeAmount,
-          createdAt: new Date().toISOString(),
+          status: "COMPLETED",
+          items: {
+            create: body.items.map((item) => ({
+              productId: item.productId,
+              quantity: item.quantity,
+              unitPrice: item.price,
+              subtotal: item.quantity * item.price,
+            })),
+          },
         },
+        include: {
+          items: true,
+        },
+      });
+
+      return {
+        status: "success",
+        message: "Transaksi berhasil diproses",
+        data: dbOrder,
       };
     },
     {
