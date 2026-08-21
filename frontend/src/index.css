@@ -1,0 +1,418 @@
+:root {
+  /* Brand Color Palette - BreWly Coffee Warm Premium Theme */
+  --primary: #3D2B1F;           /* Deep Roasted Espresso Brown */
+  --primary-hover: #2A1D14;     /* Darker Brown for Hover */
+  --primary-light: #F4ECE6;     /* Soft Latte Cream Accent */
+  --primary-glow: rgba(61, 43, 31, 0.12);
+
+  --accent: #C89D7C;            /* Warm Caramel Gold Accent */
+  --accent-hover: #B58A67;      /* Darker Caramel */
+  --accent-light: #FAF3EE;      /* Cream Highlight */
+
+  --bg-main: #FAF8F5;           /* Off-White Warm Canvas Background */
+  --bg-card: #FFFFFF;           /* Pure White Panel Background */
+
+  --text-main: #1C1917;         /* Charcoal Primary Text */
+  --text-muted: #6E6761;        /* Soft Warm Grey Subtitle/Muted Text */
+  --text-light: #9C958E;        /* Placeholder Text */
+
+  --border-color: #E8E4DF;      /* Delicate Border Line */
+  --border-focus: #C89D7C;      /* Focus Border Line */
+
+  /* Status Colors */
+  --emerald: #15803D;
+  --emerald-light: #DCFCE7;
+  --emerald-border: #86EFAC;
+
+  --amber: #B45309;
+  --amber-light: #FEF3C7;
+  --amber-border: #FDE68A;
+
+  --rose: #991B1B;
+  --rose-light: #FEE2E2;
+  --rose-border: #FCA5A5;
+
+  /* Elevation Shadows & Radius */
+  --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.04);
+  --shadow-card: 0 4px 20px rgba(28, 25, 23, 0.04), 0 1px 3px rgba(28, 25, 23, 0.02);
+  --shadow-hover: 0 10px 30px rgba(28, 25, 23, 0.07), 0 2px 6px rgba(28, 25, 23, 0.03);
+  --shadow-glow: 0 4px 16px rgba(61, 43, 31, 0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --font-main: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Card & Panel Utilities */
+.card-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-panel-hover:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: #D6D1CA;
+  transform: translateY(-2px);
+}
+
+/* Typography Utilities */
+.page-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Badge Component */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  line-height: 1.2;
+}
+.badge-emerald { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+.badge-amber { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+.badge-rose { background: var(--rose-light); color: var(--rose); border: 1px solid var(--rose-border); }
+.badge-coffee { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(61, 43, 31, 0.2); }
+.badge-neutral { background: var(--secondary); color: var(--text-muted); border: 1px solid var(--border-color); }
+
+/* Buttons System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 18px;
+  font-family: var(--font-main);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-glow);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(61, 43, 31, 0.25);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--secondary);
+  border-color: #D6D1CA;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(200, 157, 124, 0.25);
+}
+.btn-accent:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: var(--rose-light);
+  color: var(--rose);
+  border: 1px solid var(--rose-border);
+}
+.btn-danger:hover:not(:disabled) {
+  background: #FCA5A5;
+  color: #7F1D1D;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+/* Inputs & Form Controls */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.input-control {
+  width: 100%;
+  height: 42px;
+  padding: 8px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.input-control:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  background: #FFFFFF;
+}
+
+select.input-control {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Table Styling System */
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.custom-table th {
+  background: #FAF8F5;
+  padding: 13px 18px;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+.custom-table td {
+  padding: 14px 18px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  border-bottom: 1px solid #F3EFEA;
+  vertical-align: middle;
+}
+.custom-table tr:last-child td {
+  border-bottom: none;
+}
+.custom-table tr:hover td {
+  background: #FAF8F5;
+}
+
+/* Modal System */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 23, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: 0 24px 48px -12px rgba(28, 25, 23, 0.2);
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* KPI Summary Cards */
+.kpi-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+.kpi-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+.kpi-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kpi-val {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.kpi-lbl {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Dashboard Specific Layout Grids */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1100px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: calc(55% - 12px) calc(45% - 12px);
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .dashboard-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================================
+   SINGLE UNIFIED 80mm POS THERMAL RECEIPT PRINT STYLESHEET
+   ================================================== */
+#thermal-print {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 0mm;
+  }
+
+  html,
+  body {
+    width: 80mm !important;
+    max-width: 80mm !important;
+    min-width: 80mm !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+  }
+
+  body > *:not(#thermal-print) {
+    display: none !important;
+  }
+
+  #thermal-print {
+    display: block !important;
+    position: static !important;
+    width: 80mm !important;
+    max-width: 80mm !important;
+    min-width: 80mm !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 4mm 3mm !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+    transform: none !important;
+    zoom: 1 !important;
+  }
+
+  #thermal-print * {
+    color: #000000 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}

@@ -1,0 +1,52 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Line Art Coffee Cup with Saucer and Swirl Steam -->
+  <g transform="translate(100, 30)">
+    <!-- Saucer / Piring cangkir -->
+    <ellipse cx="100" cy="190" rx="90" ry="22" stroke="#4B3832" stroke-width="12" fill="none" stroke-linecap="round" />
+
+    <!-- Cup Body / Badan cangkir -->
+    <path
+      d="M32 100 C32 175, 55 180, 100 180 C145 180, 168 175, 168 100 Z"
+      stroke="#4B3832"
+      stroke-width="12"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Cup Top Rim / Bibir cangkir -->
+    <ellipse cx="100" cy="100" rx="68" ry="18" stroke="#4B3832" stroke-width="12" fill="none" />
+
+    <!-- Cup Handle / Gagang cangkir -->
+    <path
+      d="M165 110 C198 110, 198 158, 158 162"
+      stroke="#4B3832"
+      stroke-width="12"
+      fill="none"
+      stroke-linecap="round"
+    />
+
+    <!-- Swirl Steam / Uap gulung S-curve -->
+    <path
+      d="M100 82 C86 62, 86 42, 104 32 C118 22, 110 8, 96 12"
+      stroke="#4B3832"
+      stroke-width="11"
+      fill="none"
+      stroke-linecap="round"
+    />
+  </g>
+
+  <!-- Brand Typography: Brewly Coffee -->
+  <text
+    x="200"
+    y="325"
+    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Outfit', 'Inter', 'Segoe UI', sans-serif"
+    font-size="44"
+    font-weight="800"
+    fill="#4B3832"
+    text-anchor="middle"
+    letter-spacing="-0.5"
+  >
+    Brewly Coffee
+  </text>
+</svg>
