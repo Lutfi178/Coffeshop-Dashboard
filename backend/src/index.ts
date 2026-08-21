@@ -25,7 +25,7 @@ export const app = new Elysia()
   // Authentication: POST /api/auth/login
   .post(
     "/api/auth/login",
-    async ({ body, jwt, set }) => {
+    async ({ body, jwt, set }: { body: any; jwt: any; set: any }) => {
       const { email, password } = body;
 
       const user = await prisma.user.findUnique({ where: { email } });
@@ -101,7 +101,7 @@ export const app = new Elysia()
 
     return {
       status: "success",
-      data: dbProducts.map((p) => ({
+      data: dbProducts.map((p: any) => ({
         id: p.id,
         sku: p.sku,
         name: p.name,
@@ -119,7 +119,7 @@ export const app = new Elysia()
 
   .post(
     "/api/products",
-    async ({ body, set }) => {
+    async ({ body, set }: { body: any; set: any }) => {
       const priceValidation = validateProductPrice(body.price);
       if (!priceValidation.isValid) {
         set.status = 400;
@@ -175,7 +175,7 @@ export const app = new Elysia()
   // Checkout / Create Order Endpoint
   .post(
     "/api/orders",
-    async ({ body, set }) => {
+    async ({ body, set }: { body: any; set: any }) => {
       const validation = validateOrderItems(body.items);
       if (!validation.isValid) {
         set.status = 400;
@@ -211,7 +211,7 @@ export const app = new Elysia()
           changeAmount,
           status: "COMPLETED",
           items: {
-            create: body.items.map((item) => ({
+            create: body.items.map((item: any) => ({
               productId: item.productId,
               quantity: item.quantity,
               unitPrice: item.price,
