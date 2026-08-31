@@ -1,207 +1,208 @@
-# ☕ Brewly Coffee — Coffee Shop Management System
+# ☕ Brewly Coffee — Sistem Manajemen Kedai Kopi
 
-A modern, full-stack **Point of Sale (POS)** and **Sales Analytics System** designed for coffee shops and retail F&B businesses. Built with **Bun + Elysia.js** for the backend, **React 19 + TypeScript + Vite** for the frontend, and **Prisma ORM** with **PostgreSQL** for database management.
-
----
-
-## 🌟 Key Features & Functional Separation
-
-### 1. 🏠 Dashboard Admin (Executive Snapshot)
-- **Executive Overview**: Clean overview answering *"Bagaimana kondisi kedai saya saat ini?"*.
-- **4 Key KPIs**: Total Pendapatan, Profit Bersih (Net) + Margin %, Total Transaksi Sukses, dan Stok Menipis / Habis.
-- **Real-Time Panels**: Transaksi Terakhir (dengan tombol `Lihat Semua →`) dan Peringatan Stok Inventaris.
-- **Strict Separation**: Non-cluttered overview without charts or duplicate invoice tables.
-
-### 2. 📊 Laporan Penjualan & Keuangan (Business & Financial Analytics)
-- **Financial Analytics**: Answers *"Bagaimana performa penjualan dan keuangan kedai saya?"*.
-- **4 Financial KPIs**: Total Penjualan, Total HPP (Cost of Goods Sold), Profit Margin %, dan Rata-Rata Transaksi (AOV).
-- **Period Filter**: `Hari Ini`, `7 Hari Terakhir`, `Bulan Ini`.
-- **Dynamic Visuals**: Grafik Tren Omzet Penjualan Harian, Breakdown Metode Pembayaran (Cash, QRIS, Debit, Credit), Produk Terlaris (Top 5 Leaderboard), dan Analisis Jam Ramai (Peak Hours).
-- **Export Control**: `Export PDF / Print Report`.
-
-### 3. 📜 Riwayat Transaksi (Single Source of Truth for Invoices)
-- Complete transaction log list with Invoice Number, Timestamp, Cashier Name, Customer Name, Total Amount, Payment Method, and Status badges.
-- Live Search, Payment Method Filter (Cash, QRIS, Debit, Credit), and Status Filter (Completed, Pending, Cancelled).
-- Detail modal & printable invoice receipt.
-
-### 4. 🛒 Kasir & Pemesanan (Dedicated POS Screen)
-- Interactive product catalog grid with category filters.
-- Cart drawer with quantity modifiers, subtotal, discount deduction (%), tax calculation (PPN 11%), and grand total.
-- Payment modal with exact change calculation and receipt printing.
-
-### 5. 📦 Katalog Produk & Kategori (Full CRUD)
-- Create, Read, Update, and Delete products with SKU, HPP, selling price, stock, and minimum stock alerts.
-- Category management for Espresso, Non-Kopi, Tea, Bakery, Snacks, etc.
+Sistem **Point of Sale (POS)** dan **Analisis Penjualan** full-stack modern yang dirancang khusus untuk kedai kopi dan bisnis F&B retail. Dibangun menggunakan **Bun + Elysia.js** untuk backend, **React 19 + TypeScript + Vite** untuk frontend, serta **Prisma ORM** dengan **PostgreSQL** untuk manajemen database.
 
 ---
 
-## 🛠️ Tech Stack
+## 🌟 Fitur Utama & Pemisahan Fungsi
 
-| Layer | Technology |
+### 1. 🏠 Dashboard Admin (Rangkuman Eksekutif)
+- **Overview Eksekutif**: Tampilan bersih yang menjawab *"Bagaimana kondisi kedai saya saat ini?"*.
+- **4 KPI Utama**: Total Pendapatan, Profit Bersih (Net) + Margin %, Total Transaksi Sukses, dan Stok Menipis / Habis.
+- **Panel Real-Time**: Transaksi Terakhir (dengan tombol `Lihat Semua →`) dan Peringatan Stok Inventaris.
+- **Pemisahan Ketat**: Tampilan ringkas tanpa grafik berat atau tabel faktur ganda.
+
+### 2. 📊 Laporan Penjualan & Keuangan (Analisis Bisnis & Keuangan)
+- **Analisis Keuangan**: Menjawab *"Bagaimana performa penjualan dan keuangan kedai saya?"*.
+- **4 KPI Keuangan**: Total Penjualan, Total HPP (Harga Pokok Penjualan), Profit Margin %, dan Rata-Rata Transaksi (AOV).
+- **Filter Periode**: `Hari Ini`, `7 Hari Terakhir`, `Bulan Ini`.
+- **Visual Dinamis**: Grafik Tren Omzet Penjualan Harian, Rincian Metode Pembayaran (Cash, QRIS, Debit, Credit), Produk Terlaris (Top 5 Leaderboard), dan Analisis Jam Ramai (Peak Hours).
+- **Kontrol Ekspor**: `Cetak / Ekspor Laporan PDF`.
+
+### 3. 📜 Riwayat Transaksi (Pusat Data Faktur Penjualan)
+- Daftar log transaksi lengkap dengan Nomor Faktur, Tanggal & Waktu, Nama Kasir, Nama Pelanggan, Total Tagihan, Metode Pembayaran, dan Badge Status.
+- Pencarian Langsung, Filter Metode Pembayaran (Cash, QRIS, Debit, Credit), dan Filter Status (Completed, Pending, Cancelled).
+- Modal Detail Struk & Cetak Nota Transaksi.
+
+### 4. 🛒 Kasir & Pemesanan (Layar Khusus POS)
+- Grid katalog produk interaktif dengan filter kategori.
+- Drawer Keranjang dengan pengubah jumlah item, subtotal, potongan diskon (%), kalkulasi pajak PPN 11%, dan grand total.
+- Modal Pembayaran dengan kalkulasi otomatis uang kembalian dan cetak struk.
+
+### 5. 📦 Katalog Produk & Kategori (CRUD Lengkap)
+- Tambah, Baca, Edit, dan Hapus produk dengan SKU, HPP, harga jual, stok, dan batas minimum stok.
+- Manajemen kategori untuk Espresso, Non-Kopi, Teh, Bakery, Camilan, dll.
+
+---
+
+## 🛠️ Stack Teknologi
+
+| Layer | Teknologi |
 | :--- | :--- |
 | **Frontend** | React 19, TypeScript, Vite, Lucide React, Custom Vanilla CSS |
-| **Backend API** | Bun v1.0+, Elysia.js v1.2+, CORS, JWT Authentication |
+| **Backend API** | Bun v1.0+, Elysia.js v1.2+, CORS, Autentikasi JWT |
 | **Database & ORM** | PostgreSQL, Prisma ORM 6 |
-| **Testing** | Bun Test (`bun test` for Unit & Integration Testing) |
+| **Testing** | Bun Test (`bun test` untuk Unit & Integration Testing) |
+| **Linting** | Oxlint (`npm run lint` untuk analisis kualitas kode) |
 
 ---
 
-## 📂 Project Architecture
+## 📂 Arsitektur Proyek
 
 ```text
 proyek-pos/
-├── frontend/                 # React 19 + TypeScript Vite App
+├── frontend/                 # Aplikasi React 19 + TypeScript Vite
 │   ├── src/
 │   │   ├── components/       # DashboardOverview, SalesReportView, OrderHistoryView, ProductManager, CategoryManager, CustomersView, SettingsView, POSView, Sidebar
-│   │   ├── services/         # posStore.ts (State management & API service client)
-│   │   ├── types/            # pos.ts (TypeScript interface definitions)
-│   │   ├── App.tsx           # Main application shell & routing
-│   │   └── index.css         # Brewly Coffee design system (Espresso Brown, Warm Beige, Cream)
+│   │   ├── services/         # posStore.ts (Manajemen State & API client)
+│   │   ├── types/            # pos.ts (Definisi tipe TypeScript)
+│   │   ├── App.tsx           # Shell aplikasi utama & navigasi
+│   │   └── index.css         # Design system Brewly Coffee (Espresso Brown, Warm Beige, Cream)
 │   └── package.json
 │
-├── backend/                  # Bun + Elysia.js Backend & Testing
+├── backend/                  # Backend & Testing Bun + Elysia.js
 │   ├── src/
 │   │   ├── index.ts          # Elysia.js server & REST API routes
 │   │   ├── lib/
-│   │   │   └── prisma.ts     # Singleton Prisma Client instance
-│   │   └── utils/            # calculator.ts & validator.ts business logic
+│   │   │   └── prisma.ts     # Instans Singleton Prisma Client
+│   │   └── utils/            # Logika bisnis calculator.ts & validator.ts
 │   ├── tests/
 │   │   ├── unit/             # Unit tests (calculator & validator)
 │   │   └── integration/      # Integration tests (Elysia API -> Prisma -> DB)
 │   ├── prisma/
-│   │   ├── schema.prisma     # PostgreSQL data schema
-│   │   └── seed.ts           # Seeding script for users, categories & products
-│   ├── .env                  # Environment variables (PORT, DATABASE_URL, JWT_SECRET)
+│   │   ├── schema.prisma     # Skema data PostgreSQL
+│   │   └── seed.ts           # Skrip seeding data awal user, kategori & produk
+│   ├── .env                  # Variabel lingkungan (PORT, DATABASE_URL, JWT_SECRET)
 │   └── package.json
 │
-└── README.md                 # System setup & API documentation
+└── README.md                 # Dokumentasi setup sistem & API
 ```
 
 ---
 
-## 📦 Setup & Installation Instructions
+## 📦 Panduan Setup & Instalasi
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+) or [Bun](https://bun.sh/) (v1.0+)
-- [PostgreSQL](https://www.postgresql.org/) (Running locally or via cloud URL)
+### Prasyarat
+- [Node.js](https://nodejs.org/) (v18+) atau [Bun](https://bun.sh/) (v1.0+)
+- [PostgreSQL](https://www.postgresql.org/) (Berjalan lokal atau melalui Cloud PostgreSQL)
 
 ---
 
-### 1. PostgreSQL Database Configuration & Migration
+### 1. Konfigurasi Database PostgreSQL & Migrasi
 
-1. Configure `backend/.env`:
+1. Konfigurasi file `backend/.env`:
    ```env
    PORT=3001
    DATABASE_URL="postgresql://postgres:postgres@localhost:5432/brewly_pos?schema=public"
    JWT_SECRET="brewly_coffee_secret_jwt_key_2026"
    ```
 
-2. Run Prisma migration and seed script in `backend/`:
+2. Jalankan migrasi Prisma dan skrip seeding pada direktori `backend/`:
    ```bash
    cd backend
    
-   # Push Prisma schema models to PostgreSQL
+   # Push model skema Prisma ke PostgreSQL
    npx prisma migrate dev --name init
    
    # Generate Prisma Client
    npx prisma generate
    
-   # Seed initial database records
+   # Isi data awal (seeding database)
    npx bun prisma/seed.ts
    ```
 
 ---
 
-### 2. Backend API Setup & Run (Bun + Elysia.js)
+### 2. Setup & Jalankan Backend API (Bun + Elysia.js)
 
 ```bash
-# Navigate to backend directory
+# Masuk ke direktori backend
 cd backend
 
-# Install dependencies
+# Install dependensi
 npx bun install
 
-# Start Elysia.js development server
+# Jalankan server pengembangan Elysia.js
 npx bun run dev
 ```
-Server runs at `http://localhost:3001`.
+Server berjalan pada `http://localhost:3001`.
 
 ---
 
-### 3. Frontend Setup & Run (React 19 + TypeScript)
+### 3. Setup & Jalankan Frontend (React 19 + TypeScript)
 
 ```bash
-# Navigate to frontend directory
+# Masuk ke direktori frontend
 cd frontend
 
-# Install dependencies
+# Install dependensi
 npm install
 
-# Build & start Vite development server
+# Jalankan server pengembangan Vite
 npm run dev
 ```
-Open browser at `http://localhost:5173`.
+Buka browser pada `http://localhost:5173`.
 
 ---
 
-## 🧪 Running Unit & Integration Tests
+## 🧪 Menjalankan Unit & Integration Test
 
-All tests are executed using **Bun Test**:
+Semua pengujian dijalankan menggunakan **Bun Test**:
 
 ```bash
 cd backend
 
-# Run ALL Unit and Integration Tests
+# Jalankan SEMUA Unit dan Integration Test
 npx bun test
 
-# Run ONLY Unit Tests
+# Jalankan HANYA Unit Test
 npx bun test tests/unit/calculator.test.ts tests/unit/validator.test.ts
 
-# Run ONLY Integration Tests
+# Jalankan HANYA Integration Test
 npx bun test tests/integration/api.test.ts
 ```
 
-### Test Suite Summary
-- `calculator.test.ts`: Subtotal calculation, PPN 11% tax calculation, discount capping (100%), grand total aggregation, cash change calculation, insufficient payment error, stock status classification.
-- `validator.test.ts`: Product price validation, stock integer bounds, SKU pattern matching, empty cart payload rejection.
-- `api.test.ts`: `GET /` server health, `POST /api/auth/login` JWT auth & authorization, `GET /api/dashboard/stats`, `GET /api/products`, `POST /api/orders` checkout flow, and `400 Bad Request` validation failure handling.
+### Ringkasan Pengujian
+- `calculator.test.ts`: Perhitungan subtotal, kalkulasi PPN 11%, pembatasan diskon (max 100%), grand total, kalkulasi kembalian tunai, penanganan error pembayaran kurang, dan klasifikasi stok.
+- `validator.test.ts`: Validasi harga produk, batas integer stok, pencocokan pola SKU, dan penolakan payload keranjang kosong.
+- `api.test.ts`: Health check `GET /`, autentikasi & otorisasi JWT `POST /api/auth/login`, statistik dashboard `GET /api/dashboard/stats`, katalog produk `GET /api/products`, alur transaksi `POST /api/orders`, serta penanganan validasi `400 Bad Request`.
 
 ---
 
-## 🔍 Running Lint Tests (Oxlint)
+## 🔍 Menjalankan Lint Test (Oxlint)
 
-Code quality and style consistency are enforced across both Frontend and Backend using **Oxlint** (ultra-fast Rust-based TypeScript & React linter):
+Kualitas kode dan konsistensi standar diperiksa di seluruh Frontend dan Backend menggunakan **Oxlint**:
 
 ```bash
-# 1. Run Linting for BOTH Frontend & Backend from Root Monorepo
+# 1. Jalankan Linting untuk Frontend DAN Backend dari Root Monorepo
 npm run lint
 
-# 2. Run Linting specifically in Frontend (React + TypeScript)
+# 2. Jalankan Linting khusus Frontend (React + TypeScript)
 cd frontend
 npm run lint
 
-# 3. Run Linting specifically in Backend (Bun + Elysia + TypeScript)
+# 3. Jalankan Linting khusus Backend (Bun + Elysia + TypeScript)
 cd backend
 bun run lint
 ```
 
 ---
 
-## 📡 Complete REST API Endpoint Documentation
+## 📡 Dokumentasi Endpoint REST API Lengkap
 
-### 🔑 Authentication & Authorization
+### 🔑 Autentikasi & Otorisasi
 
 #### `POST /api/auth/login`
-Authenticates Admin or Cashier user and returns a signed JWT token.
+Mengautentikasi pengguna Admin atau Kasir dan mengembalikan token JWT bertanda tangan.
 
-- **Request Body**:
+- **Body Request**:
   ```json
   {
     "email": "admin@brewlycoffee.com",
     "password": "admin123password"
   }
   ```
-- **Response (200 OK)**:
+- **Respon (200 OK)**:
   ```json
   {
     "status": "success",
@@ -220,12 +221,12 @@ Authenticates Admin or Cashier user and returns a signed JWT token.
 
 ---
 
-### 📊 Dashboard & Analytics
+### 📊 Dashboard & Analitik
 
 #### `GET /api/dashboard/stats`
-Returns executive snapshot metrics for the Admin Dashboard.
+Mengembalikan ringkasan metrik eksekutif untuk Dashboard Admin.
 
-- **Response (200 OK)**:
+- **Respon (200 OK)**:
   ```json
   {
     "status": "success",
@@ -242,12 +243,12 @@ Returns executive snapshot metrics for the Admin Dashboard.
 
 ---
 
-### 📦 Products CRUD
+### 📦 CRUD Produk
 
 #### `GET /api/products`
-Retrieves list of all coffee shop products with category info.
+Mengambil daftar seluruh produk kedai kopi beserta informasi kategori.
 
-- **Response (200 OK)**:
+- **Respon (200 OK)**:
   ```json
   {
     "status": "success",
@@ -269,9 +270,9 @@ Retrieves list of all coffee shop products with category info.
   ```
 
 #### `POST /api/products`
-Creates a new product item.
+Menambahkan item produk baru.
 
-- **Request Body**:
+- **Body Request**:
   ```json
   {
     "sku": "PRD-005",
@@ -287,12 +288,12 @@ Creates a new product item.
 
 ---
 
-### 💳 POS Orders & Checkout
+### 💳 Transaksi POS & Checkout
 
 #### `POST /api/orders`
-Processes POS transaction checkout, validates cart items, calculates PPN 11% tax, discount, total amount, and cash change.
+Memproses transaksi checkout POS, memvalidasi item keranjang, menghitung PPN 11%, diskon, total tagihan, dan uang kembalian.
 
-- **Request Body**:
+- **Body Request**:
   ```json
   {
     "customerName": "Budi Santoso",
@@ -305,7 +306,7 @@ Processes POS transaction checkout, validates cart items, calculates PPN 11% tax
     ]
   }
   ```
-- **Response (200 OK)**:
+- **Respon (200 OK)**:
   ```json
   {
     "status": "success",
@@ -325,8 +326,3 @@ Processes POS transaction checkout, validates cart items, calculates PPN 11% tax
     }
   }
   ```
-
----
-
-## 📄 License
-MIT License &copy; 2026 Brewly Coffee Management System
