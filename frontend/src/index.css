@@ -1,4 +1,4 @@
-:root {
+  :root {
   /* Brand Color Palette - BreWly Coffee Warm Premium Theme */
   --primary: #3D2B1F;           /* Deep Roasted Espresso Brown */
   --primary-hover: #2A1D14;     /* Darker Brown for Hover */
@@ -379,8 +379,6 @@ select.input-control {
   body {
     width: 80mm !important;
     max-width: 80mm !important;
-    min-width: 80mm !important;
-    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
     background: #ffffff !important;
@@ -394,9 +392,8 @@ select.input-control {
   #thermal-print {
     display: block !important;
     position: static !important;
-    width: 80mm !important;
-    max-width: 80mm !important;
-    min-width: 80mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
     margin: 0 !important;
     padding: 4mm 3mm !important;
@@ -406,8 +403,6 @@ select.input-control {
     font-family: Arial, Helvetica, sans-serif !important;
     font-size: 10.5px !important;
     line-height: 1.35 !important;
-    transform: none !important;
-    zoom: 1 !important;
   }
 
   #thermal-print * {

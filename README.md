@@ -168,6 +168,25 @@ npx bun test tests/integration/api.test.ts
 
 ---
 
+## 🔍 Running Lint Tests (Oxlint)
+
+Code quality and style consistency are enforced across both Frontend and Backend using **Oxlint** (ultra-fast Rust-based TypeScript & React linter):
+
+```bash
+# 1. Run Linting for BOTH Frontend & Backend from Root Monorepo
+npm run lint
+
+# 2. Run Linting specifically in Frontend (React + TypeScript)
+cd frontend
+npm run lint
+
+# 3. Run Linting specifically in Backend (Bun + Elysia + TypeScript)
+cd backend
+bun run lint
+```
+
+---
+
 ## 📡 Complete REST API Endpoint Documentation
 
 ### 🔑 Authentication & Authorization

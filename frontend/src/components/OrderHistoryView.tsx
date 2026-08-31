@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { FileText, Search, Eye, ChevronDown } from 'lucide-react';
+import { FileText, Search, Eye } from 'lucide-react';
 import type { Order } from '../types/pos';
 import { ReceiptDetailModal } from './ReceiptDetailModal';
 
@@ -10,7 +10,6 @@ interface OrderHistoryViewProps {
 export const OrderHistoryView: React.FC<OrderHistoryViewProps> = ({ orders }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [paymentFilter, setPaymentFilter] = useState<string>('ALL');
-  const [statusFilter, setStatusFilter] = useState<string>('ALL');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   const formatIDR = (val: number) =>
@@ -26,12 +25,11 @@ export const OrderHistoryView: React.FC<OrderHistoryViewProps> = ({ orders }) =>
           o.paymentMethod.toLowerCase().includes(searchQuery.toLowerCase());
 
         const matchesPayment = paymentFilter === 'ALL' || o.paymentMethod === paymentFilter;
-        const matchesStatus = statusFilter === 'ALL' || o.status === statusFilter;
 
-        return matchesSearch && matchesPayment && matchesStatus;
+        return matchesSearch && matchesPayment;
       })
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  }, [orders, searchQuery, paymentFilter, statusFilter]);
+  }, [orders, searchQuery, paymentFilter]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', maxWidth: '100%' }}>
@@ -101,33 +99,6 @@ export const OrderHistoryView: React.FC<OrderHistoryViewProps> = ({ orders }) =>
             <option value="DEBIT">DEBIT</option>
             <option value="CREDIT">CREDIT</option>
           </select>
-          <ChevronDown size={15} color="#3D2B1F" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
-        </div>
-
-        {/* Status Filter Select Dropdown */}
-        <div style={{ position: 'relative', width: '160px' }}>
-          <select
-            className="input-control"
-            style={{
-              height: '42px',
-              borderRadius: '10px',
-              fontSize: '13px',
-              paddingRight: '38px',
-              appearance: 'none',
-              WebkitAppearance: 'none',
-              MozAppearance: 'none',
-              cursor: 'pointer',
-              background: '#FFFFFF',
-            }}
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="ALL">Semua Status</option>
-            <option value="COMPLETED">COMPLETED</option>
-            <option value="PENDING">PENDING</option>
-            <option value="CANCELLED">CANCELLED</option>
-          </select>
-          <ChevronDown size={15} color="#3D2B1F" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
         </div>
       </div>
 

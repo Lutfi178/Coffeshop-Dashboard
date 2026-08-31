@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "bun run src/index.ts",
     "test": "bun test",
+    "lint": "oxlint",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
@@ -16,6 +17,10 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "bun-types": "latest",
+    "oxlint": "^1.75.0",
     "prisma": "^6.4.0"
+  },
+  "prisma": {
+    "seed": "bun run prisma/seed.ts"
   }
 }
